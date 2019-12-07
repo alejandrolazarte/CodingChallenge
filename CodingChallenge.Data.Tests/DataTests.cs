@@ -12,6 +12,7 @@ namespace CodingChallenge.Data.Tests
 
         public DataTests()
         {
+            //Simula datos de una Base de Datos
             _traducciones = new List<TraduccionReporte>()
             {
                 new TraduccionReporte()
@@ -75,6 +76,35 @@ namespace CodingChallenge.Data.Tests
                             FormaGeometrica = "Circulo",
                             Singular = "Circle",
                             Plural = "Circles"
+                        },
+                        new TraduccionForma()
+                        {
+                            FormaGeometrica = "TrianguloEquilatero",
+                            Singular = "Triangle",
+                            Plural = "Triangles"
+                        }
+                    }
+                },
+                new TraduccionReporte()
+                {
+                    Idioma = "Frances",
+                    ListaVacia = "<h1>Liste vide de formes!</h1>",
+                    Header = "<h1>Rapport sur les formulaires</h1>",
+                    Forma = "des formes",
+                    Perimetro = "Périmètre",
+                    TraduccionFormas = new List<TraduccionForma>()
+                    {
+                        new TraduccionForma()
+                        {
+                            FormaGeometrica = "Cuadrado",
+                            Singular = "Carré",
+                            Plural = "Carrés"
+                        },
+                        new TraduccionForma()
+                        {
+                            FormaGeometrica = "Circulo",
+                            Singular = "Cercle",
+                            Plural = "Cercles"
                         },
                         new TraduccionForma()
                         {
@@ -203,6 +233,18 @@ namespace CodingChallenge.Data.Tests
             var resumen = Reporte.Imprimir(cuadrados, traduccion);
 
             Assert.AreEqual("<h1>Reporte de Formas</h1>1 Rectangulo | Area 12 | Perimetro 8 <br/>TOTAL:<br/>1 formas Perimetro 8 Area 12", resumen);
+        }
+
+        [TestCase]
+        public void TestResumenListaConUnRectanguloFrances()
+        {
+            var traduccion = _traducciones.FirstOrDefault(x => x.Idioma == "Frances");
+
+            var cuadrados = new List<FormaGeometrica> { new Rectangulo() { Lado = 2, Lado2 = 4 } };
+
+            var resumen = Reporte.Imprimir(cuadrados, traduccion);
+
+            Assert.AreEqual("<h1>Rapport sur les formulaires</h1>1  | Area 12 | Périmètre 8 <br/>TOTAL:<br/>1 des formes Périmètre 8 Area 12", resumen);
         }
 
     }
